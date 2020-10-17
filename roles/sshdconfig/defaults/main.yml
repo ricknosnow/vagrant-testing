@@ -1,0 +1,6 @@
+---
+# sshdconfig role variables
+
+ssh_template_file: sshd_config_ubuntu.j2
+ssh_users: "rick simone vagrant"
+...
