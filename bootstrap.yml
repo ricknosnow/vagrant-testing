@@ -1,5 +1,5 @@
 ---
-
+# This playbook is used to set up a machine for ansible.
 - hosts: all
   become: true
   pre_tasks:
@@ -13,6 +13,9 @@
 
 - hosts: all
   become: true
+  vars_files:
+    - vars/vars.yml
+    - vars/vault.yml
   tasks:
 
   - name: create simone user
@@ -25,7 +28,7 @@
     tags: always
     authorized_key:
       user: simone
-      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIITcE3NaBhTNuTk4GZ3EIWVIujIP07KMoM2zAzvQqO61 ansible"
+      key: "{{ simone_key }}"
 
   - name: add sudoers file for simone
     tags: always
@@ -34,11 +37,5 @@
       dest: /etc/sudoers.d/simone
       owner: root
       group: root
-      mode: 044
-
-- hosts: all
-  become: true
-  roles:
-    - sshdconfig
-
+      mode: 0440
 ...

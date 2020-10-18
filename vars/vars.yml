@@ -1,0 +1,1 @@
+simone_key: "{{ vault_simone_key }}"
