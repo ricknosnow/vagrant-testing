@@ -1,0 +1,11 @@
+---
+# Playbook to Set up machine for reverse ssh to server
+
+# copy public key to ssh to server so login can happen
+
+# create ssh config file and copy to the host
+
+# setup systemd service
+# create systemd j2 template
+# copy systemd template to host
+...
