@@ -1,0 +1,10 @@
+---
+# This playbook is used to set up a machine for ansible.
+- hosts: all
+  become: true
+  vars_files:
+    - vars/vars.yml
+    - vars/vault.yml
+  roles:
+    - sshdconfig
+...
