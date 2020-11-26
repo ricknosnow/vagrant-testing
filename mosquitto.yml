@@ -1,0 +1,24 @@
+---
+# This playbook is used to set up a machine for ansible.
+- hosts: all
+  become: true
+  vars_files:
+    - vars/vars.yml
+    - vars/vault.yml
+#  roles:
+#    - sshdconfig
+  tasks:  
+# install docker
+  - name: install docker
+    apt:
+      name:
+        - docker.io
+      state: latest
+      update_cache: yes
+    when: ansible_distribution in  ["Debian", "Ubuntu"]
+
+# set up folders
+# create config file
+# create docker compose
+# launch mqtt
+...
