@@ -5,6 +5,7 @@
   vars_files:
     - vars/vars.yml
     - vars/vault.yml
+    - vars/dock_mosquitto.yml
 #  roles:
 #    - sshdconfig
   tasks:  
