@@ -5,6 +5,18 @@ appdata_path: /home/rick/docker
 
 containers:
   ###
+  - service_name: homeassistant
+    container_name: home-assistant
+    active: true
+#    image: homeassistant/home-assistant:0.104.3
+    image: homeassistant/home-assistant:stable
+    volumes:
+      - '{{ appdata_path }}/homeassist/config:/config'
+    environment:
+      - TZ=America/New_York
+    restart: always
+    network_mode: host
+  ###
   - service_name: mosquitto 
     container_name: mosquitto
     active: true
@@ -17,3 +29,4 @@ containers:
       - "{{ appdata_path }}/mosquitto/data:/mosquitto/data"
       - "{{ appdata_path }}/mosquitto/log:/mosquitto/log"
     restart: unless-stopped
+  ###
