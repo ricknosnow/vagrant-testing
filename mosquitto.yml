@@ -9,16 +9,58 @@
 #    - sshdconfig
   tasks:  
 # install docker
-  - name: install docker
+  - name: install docker and docker-compose
     apt:
       name:
         - docker.io
+        - docker-compose
       state: latest
       update_cache: yes
     when: ansible_distribution in  ["Debian", "Ubuntu"]
 
+  - name: Add user to docker group
+    user:
+      name: rick
+      groups: docker
+      append: yes
+      state: present
+
 # set up folders
-# create config file
+  - name: Create docker directory structure
+    become: yes
+    become_user: rick
+    file:
+      path: /home/rick/docker/share
+      state: directory
+    tags: docker
+    
+  - name: Create mosquitto directory structure
+    become: yes
+    become_user: rick
+    file:
+      path: /home/rick/docker/{{ item }}
+      state: directory
+    loop:
+      - mosquitto/config
+      - mosquitto/data
+      - mosquitto/log
+
+# create mosquitto config file
+  - name: add sudoers file for simone
+    copy:
+      src: mosquitto.conf
+      dest: /home/rick/docker/mosquitto/config
+      owner: rick
+      group: rick
+      mode: 0644
+
 # create docker compose
+  - name: Setting up docker-compose
+    include_role:
+      name: docker_compose_gen
+    vars:
+      docker_compose_generator_output_path: '/home/rick/docker'
+      docker_compose_generator_uid: rick
+      docker_compose_generator_gid: rick
 # launch mqtt
 ...

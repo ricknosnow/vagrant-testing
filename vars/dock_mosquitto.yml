@@ -1,0 +1,19 @@
+# ironicbadger.docker_compose_generator
+appdata_path: /home/rick/docker
+# download_path: /opt/downloads # in use?
+# primary_domain: al.ktz.me
+
+containers:
+  ###
+  - service_name: mosquitto 
+    container_name: mosquitto
+    active: true
+    image: eclipse-mosquitto
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - "{{ appdata_path }}/mosquitto/config:/mosquitto/config"
+      - "{{ appdata_path }}/mosquitto/data:/mosquitto/data"
+      - "{{ appdata_path }}/mosquitto/log:/mosquitto/log"
+    restart: unless-stopped
